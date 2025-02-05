@@ -9,9 +9,9 @@ This project is built using **Go 1.23.6** and supports **Docker** for containeri
 
 ---
 
-# 🚀 **Installation and Setup**
+## 🚀 **Installation and Setup**
 
-## **1️⃣ Prerequisites**
+### **1️⃣ Prerequisites**
 Before running the project, ensure you have the following installed:
 
 | Dependency      | Version                     | Installation Command |
@@ -27,26 +27,26 @@ docker --version # Should output Docker version 27.4.0
 jq --version    # If installed, should show version info
 ```
 
-## 2️⃣ Clone the Repository
+### 2️⃣ Clone the Repository
 ```sh
 git clone https://github.com/namandiwan/fetch-receipt-processor-challenge.git
 cd fetch-receipt-processor-challenge
 ```
 
-## 3️⃣ Install Dependencies
+### 3️⃣ Install Dependencies
 ```sh
 go mod tidy
 ```
 
-# 🚀 Running the Project
+## 🚀 Running the Project
 
-## 1️⃣ Run Locally with Go
+### 1️⃣ Run Locally with Go
 ```sh
 go run main.go
 ```
 The server will start on http://localhost:8080
 
-## 2️⃣ Run with Docker
+### 2️⃣ Run with Docker
 📌 Build the Docker Image
 ```sh
 docker build -t receipt-processor .
@@ -62,7 +62,7 @@ docker run -p 9090:8080 receipt-processor
 ```
 Then access the API at http://localhost:9090
 
-# 📡 API Endpoints and Usage
+## 📡 API Endpoints and Usage
 
 📌 Submit a Receipt
 ```sh
@@ -88,7 +88,7 @@ curl -X GET "http://localhost:8080/receipts/<id>/points"
 {"points": 31}
 ```
 
-# 🐳 Docker Setup and Usage
+## 🐳 Docker Setup and Usage
 
 📌 Verify Docker Installation
 ```sh
@@ -121,32 +121,75 @@ docker rmi receipt-processor
 ```
 
 📌 Push Docker Image to DockerHub
-1️⃣ Login to DockerHub
+
+### 1️⃣ Login to DockerHub
 ```sh
-git clone https://github.com/namandiwan/fetch-receipt-processor-challenge.git
-cd fetch-receipt-processor-challenge
+docker login
 ```
 
-## 2️⃣ Clone the Repository
+### 2️⃣ Tag the image:
 ```sh
-git clone https://github.com/namandiwan/fetch-receipt-processor-challenge.git
-cd fetch-receipt-processor-challenge
+docker tag receipt-processor your-username/receipt-processor:latest
 ```
 
-## 2️⃣ Clone the Repository
+### 3️⃣ Push to DockerHub:
 ```sh
-git clone https://github.com/namandiwan/fetch-receipt-processor-challenge.git
-cd fetch-receipt-processor-challenge
+docker push your-username/receipt-processor:latest
 ```
 
-## 2️⃣ Clone the Repository
+🧪 Running Tests
+To run unit tests:
 ```sh
-git clone https://github.com/namandiwan/fetch-receipt-processor-challenge.git
-cd fetch-receipt-processor-challenge
+go test ./tests
 ```
 
-## 2️⃣ Clone the Repository
+✅ Expected output:
 ```sh
-git clone https://github.com/namandiwan/fetch-receipt-processor-challenge.git
-cd fetch-receipt-processor-challenge
+PASS
 ```
+
+## 📂 Project Directory Structure
+```sh
+fetch-receipt-processor-challenge/
+│── api.yml                         # OpenAPI Specification
+│── Dockerfile                       # Docker configuration
+│── go.mod                           # Go module file (dependencies)
+│── go.sum                           # Go dependencies lockfile
+│── main.go                          # Main application logic
+│── tests/
+│   ├── main_test.go                 # Unit tests for handlers
+│── examples/
+│   ├── morning-receipt.json         # Sample receipt for testing
+│   ├── simple-receipt.json          # Another test receipt
+│   ├── night-receipt.json           # Another test receipt
+│   ├── evening-receipt.json         # Another test receipt
+│── README.md                        # Documentation
+```
+
+## 🔧 **Troubleshooting**
+| **Issue** | **Solution** |
+|-----------|-------------|
+| **404 Not Found** | Ensure you’re using the correct receipt ID. |
+| **Connection Refused** | Start the server using `go run main.go`. |
+| **Port Already in Use** | Run `lsof -i :8080` → Kill process using `kill -9 <PID>`. |
+| **Docker Build Fails (Go Version Mismatch)** | Use `FROM golang:1.23.6` in `Dockerfile`. |
+| **Docker Port Conflict** | Run `docker run -p 9090:8080 receipt-processor`. |
+
+## 📌 Automated Testing
+
+This project will be evaluated using an automated testing suite to confirm it matches the specified API.
+✅ Ensure:
+	•	The API adheres to the OpenAPI specification.
+	•	All test cases pass before submission.
+
+Run the following before submitting:
+```sh
+go test ./tests
+```
+
+## 🎯 Final Notes
+
+✅ Go-based API for processing receipts.
+✅ Supports Docker for easy deployment.
+✅ Includes testing & debugging features.
+✅ Simple to install & run.
